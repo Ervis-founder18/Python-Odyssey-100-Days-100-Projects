@@ -30,7 +30,7 @@ scissors=("""
 
 user_input=int(input("CHOOSE WHT U WANT press 0 for rock, 1 for paper, 2 for scissors : \n"))
 choice1=[rock,paper,scissors]
-computer_choice=random.choice(choice1)
+computer_choice=random.choice(choice1) # here i used the choice function in random module it helps to simplify the code very well.
 
 if user_input==0:
     print(rock)
