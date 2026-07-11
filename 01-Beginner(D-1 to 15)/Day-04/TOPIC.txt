@@ -1,3 +1,5 @@
 DAY -4 
 
 TOPIC : RANDOMISATION AND PYTHON LISTS 
+
+Main thing we have learned here is List and from that list we can use the function called "choice" which is built in function under random module concept.
