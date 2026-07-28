@@ -1,0 +1,668 @@
+Before any program it is good to write the Logic/Algorithm(via Flowchart, algorithm, psuedo-code) and do the dry run is best to start before actual execution of code.
+
+
+
+
+
+Think of Hangman as a **game of hidden information**.
+
+
+One side knows a secret word.
+The other side must discover it using only **letter guesses** before running out of chances.
+
+Let's build the entire game from first principles.
+
+-----------------------------------------------------------------------
+
+# 1. What is Hangman?
+
+Hangman is a **word guessing game**.
+
+The computer secretly chooses one word.
+
+The player **cannot see the word**.
+
+Instead, the player sees only blank spaces representing each letter.
+
+Example:
+
+Secret word: "PYTHON"
+```
+
+Player sees: _ _ _ _ _ _(blank spaces with respective blanks for the word)
+```
+
+The objective: It is to discover the entire word before making too many wrong guesses.
+
+---
+
+# 2. Why is it called Hangman?
+
+Traditionally, every wrong guess draws one more part of a stick figure hanging from a gallows.
+
+Example:
+
+```text
+Wrong Guess #1
+
+ O
+```
+
+```text
+Wrong Guess #2
+
+ O
+ |
+```
+
+```text
+Wrong Guess #3
+
+ O
+/|
+```
+
+```text
+Wrong Guess #4
+
+ O
+/|\
+```
+
+```text
+Wrong Guess #5
+
+ O
+/|\
+/
+```
+
+```text
+Wrong Guess #6
+
+ O
+/|\
+/ \
+```
+
+Once the full figure is completed, the player loses.
+
+Today many games simply show "Lives Remaining: 6" instead of drawing the figure.
+
+---
+
+# 3. What are the rules?
+
+Suppose the secret word is
+
+
+ELEPHANT
+```
+
+Initially the player sees
+
+
+_ _ _ _ _ _ _ _
+```
+
+The player guesses one letter.
+
+Suppose they guess
+E
+```
+
+Since E exists in the word, reveal **every E**.
+
+
+E _ E _ _ _ _ _
+```
+
+Notice something important:
+
+The player guessed **only one letter**.
+
+But both E's became visible.
+
+---
+
+Now the player guesses
+L
+```
+
+Result
+
+```text
+E L E _ _ _ _ _
+```
+
+---
+
+Player guesses
+
+```text
+Z
+```
+
+There is no Z.
+
+Nothing changes.
+
+Instead
+
+* Wrong guesses increase by 1
+* One life is lost
+
+---
+
+Continue until one of two things happens.
+
+---
+
+## Win
+
+All letters become visible.
+
+```text
+E L E P H A N T
+```
+
+Player wins.
+
+---
+
+## Lose
+
+Wrong guesses reach the maximum.
+
+For example
+
+```text
+Maximum Wrong Guesses = 6
+
+Wrong Guess = 6
+
+Game Over
+```
+
+---
+
+# 4. What information does the computer need?
+
+Before the game starts, the computer stores some information.
+
+Imagine it like this.
+
+```
+Computer Memory
+
+Secret Word
+↓
+
+PYTHON
+
+--------------------
+
+Correct Guesses
+
+[]
+
+--------------------
+
+Wrong Guesses
+
+0
+
+--------------------
+
+Maximum Wrong
+
+6
+```
+
+That is the entire game state.
+
+Everything else is calculated from these values.
+
+---
+
+# 5. How does the computer choose a word?
+
+The programmer creates a list.
+
+```
+Animals
+
+Lion
+Tiger
+Monkey
+Elephant
+
+Countries
+
+India
+Japan
+Canada
+
+Fruits
+
+Apple
+Banana
+Orange
+```
+
+If the player chooses
+
+```
+Category
+
+Animals
+```
+
+The computer randomly selects
+
+```
+Tiger
+```
+
+The player never sees it.
+
+Internally the computer stores
+
+```
+secret_word = "TIGER"
+```
+
+---
+
+# 6. What does the player actually see?
+
+Although the computer knows
+
+```
+TIGER
+```
+
+It displays
+
+```
+_ _ _ _ _
+```
+
+because no letters have been guessed yet.
+
+Think of the display as a **mask** hiding the word.
+
+---
+
+# 7. What happens after every guess?
+
+Suppose
+
+```
+Secret Word
+
+PYTHON
+```
+
+Player guesses
+
+```
+P
+```
+
+Computer asks
+
+> Does "P" exist inside "PYTHON"?
+
+Yes.
+
+Reveal it.
+
+```
+P _ _ _ _ _
+```
+
+---
+
+Next guess
+
+```
+O
+```
+
+```
+P _ _ _ O _
+```
+
+---
+
+Next guess
+
+```
+A
+```
+
+Computer checks
+
+```
+Is A inside PYTHON?
+```
+
+No.
+
+Increase wrong guesses.
+
+```
+Wrong = 1
+```
+
+---
+
+This process repeats.
+
+---
+
+# 8. The complete game flow
+
+```
+Game Starts
+
+↓
+
+Choose category
+
+↓
+
+Randomly pick one word
+
+↓
+
+Hide every letter
+
+↓
+
+Show blanks
+
+↓
+
+Player guesses one letter
+
+↓
+
+Is letter inside secret word?
+
+        YES
+         ↓
+Reveal every occurrence
+
+        NO
+         ↓
+Wrong guesses += 1
+
+↓
+
+Display updated word
+
+↓
+
+Has player guessed every letter?
+
+YES
+
+↓
+
+Player Wins
+
+NO
+
+↓
+
+Have wrong guesses reached limit?
+
+YES
+
+↓
+
+Player Loses
+
+NO
+
+↓
+
+Ask for another letter
+
+↓
+
+Repeat
+```
+
+This loop is the heart of the game.
+
+---
+
+# 9. What logic does the computer follow?
+
+Every guess follows exactly the same sequence.
+
+```
+Receive letter
+
+↓
+
+Check if already guessed
+
+↓
+
+If already guessed
+
+↓
+
+Tell player
+
+↓
+
+Guess again
+
+------------------
+
+Otherwise
+
+↓
+
+Is letter inside word?
+
+↓
+
+YES
+
+↓
+
+Store letter as correct
+
+↓
+
+Reveal it
+
+------------------
+
+NO
+
+↓
+
+Increase wrong guesses
+
+↓
+
+Store wrong letter
+
+↓
+
+Repeat
+```
+
+---
+
+# 10. How does the computer reveal letters?
+
+Suppose
+
+```
+Word
+
+ELEPHANT
+```
+
+Player guessed
+
+```
+E
+```
+
+The computer examines every letter:
+
+```
+Position 1
+
+E
+
+Match
+
+Show E
+
+------------------
+
+Position 2
+
+L
+
+No Match
+
+Show _
+
+------------------
+
+Position 3
+
+E
+
+Match
+
+Show E
+
+------------------
+
+Position 4
+
+P
+
+No Match
+
+Show _
+
+...
+
+Final
+
+E _ E _ _ _ _ _
+```
+
+It checks **every position**, not just the first occurrence.
+
+---
+
+# 11. What variables are needed?
+
+A basic Hangman program typically needs:
+
+| Variable          | Purpose                                     |
+| ----------------- | ------------------------------------------- |
+| `secret_word`     | The hidden word selected by the computer    |
+| `guessed_letters` | Letters the player has guessed correctly    |
+| `wrong_letters`   | Incorrect guesses made by the player        |
+| `wrong_guesses`   | Number of mistakes                          |
+| `max_wrong`       | Maximum allowed mistakes (e.g., 6)          |
+| `category`        | The chosen category (Animals, Fruits, etc.) |
+
+---
+
+# 12. The core algorithm (without Python syntax)
+
+The entire game can be described in plain English:
+
+```
+START
+
+Choose a category.
+
+Choose one random word from that category.
+
+Store it as the secret word.
+
+Set wrong guesses to zero.
+
+Create an empty list of guessed letters.
+
+WHILE game is not over
+
+    Display the hidden word.
+
+    Ask the player for one letter.
+
+    IF the letter was already guessed
+
+        Tell the player.
+
+        Continue.
+
+    IF the letter exists in the secret word
+
+        Save it as a correct guess.
+
+    ELSE
+
+        Increase wrong guesses.
+
+    IF every unique letter in the secret word has been guessed
+
+        Player wins.
+
+        Stop.
+
+    IF wrong guesses equal the maximum allowed
+
+        Player loses.
+
+        Reveal the word.
+
+        Stop.
+
+END
+```
+
+---
+
+# 13. Programming concepts you'll practice
+
+Hangman is a favorite beginner Python project because it combines many core concepts:
+
+* **Variables**: store the secret word, guesses, and lives.
+* **Lists or sets**: track guessed letters.
+* **Strings**: represent and examine the secret word.
+* **Loops (`while`)**: keep the game running until it ends.
+* **Conditionals (`if` / `else`)**: determine whether a guess is correct.
+* **Functions**: organize tasks like displaying the word or checking for a win.
+* **Random selection**: choose a word from a list.
+
+---
+
+## The big idea
+
+From a programming perspective, Hangman is **not about drawing a stick figure**. It's about **maintaining and updating the game's state**.
+
+At any moment, the game is fully defined by:
+
+* the **secret word**,
+* the **letters guessed so far**, and
+* the **number of wrong guesses**.
+
+Every time the player enters a letter, your program updates that state according to a few simple rules, displays the new state, and repeats until the player either reveals the entire word or runs out of lives. That's the complete logic behind Hangman.
