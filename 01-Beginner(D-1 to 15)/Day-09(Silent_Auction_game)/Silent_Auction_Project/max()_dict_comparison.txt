@@ -1,0 +1,405 @@
+Let's build it step by step.
+
+---
+
+# Step 1: A dictionary
+
+```python
+bids = {
+    "John": 100,
+    "Alice": 250,
+    "Bob": 180
+}
+```
+
+Think of it like this:
+
+| Key   | Value |
+| ----- | ----: |
+| John  |   100 |
+| Alice |   250 |
+| Bob   |   180 |
+
+--------------------------------------------------------------------------------------------------------------
+
+# Step 2: What does `max()` normally do?
+
+Syntax:
+
+max(iterable)
+
+Example:
+
+
+numbers = [10, 5, 20]
+
+print(max(numbers))
+
+
+Output :
+
+20
+
+
+---
+
+Now with a dictionary:
+
+```python
+print(max(bids))
+```
+
+Output
+
+```text
+John
+```
+
+Why?
+
+Because when you iterate over a dictionary:
+
+```python
+for item in bids:
+    print(item)
+```
+
+Output
+
+```text
+John
+Alice
+Bob
+```
+
+A dictionary **iterates over its keys by default**.
+
+So
+
+```python
+max(bids)
+```
+
+really means
+
+```python
+max(["John", "Alice", "Bob"])
+```
+
+Python compares alphabetically.
+
+---
+
+# Step 3: `key=` changes the comparison
+
+General syntax:
+
+```python
+max(iterable, key=function)
+```
+
+Notice carefully:
+
+```
+max(
+    iterable,
+    key = function
+)
+```
+
+`key` must be **a function**.
+
+Python will call that function on every element before comparing them.
+
+---
+
+## Example 1
+
+```python
+words = ["apple", "banana", "cat"]
+
+print(max(words))
+```
+
+Output
+
+```text
+cat
+```
+
+Alphabetically.
+
+Now compare by length.
+
+```python
+print(max(words, key=len))
+```
+
+Python secretly does
+
+```
+apple  -> len() -> 5
+
+banana -> len() -> 6
+
+cat    -> len() -> 3
+```
+
+Largest length is 6.
+
+Output
+
+```text
+banana
+```
+
+---
+
+# Step 4: Dictionary version
+
+Now
+
+```python
+max(bids, key=bids.get)
+```
+
+The iterable is
+
+```python
+bids
+```
+
+which means
+
+```python
+John
+Alice
+Bob
+```
+
+Now Python applies
+
+```python
+bids.get()
+```
+
+to each key.
+
+Internally it is almost like this:
+
+```python
+bids.get("John")
+```
+
+returns
+
+```text
+100
+```
+
+Then
+
+```python
+bids.get("Alice")
+```
+
+returns
+
+```text
+250
+```
+
+Then
+
+```python
+bids.get("Bob")
+```
+
+returns
+
+```text
+180
+```
+
+Python compares
+
+```
+John  → 100
+Alice → 250
+Bob   → 180
+```
+
+Largest value
+
+```
+250
+```
+
+belongs to
+
+```
+Alice
+```
+
+So
+
+```python
+winner = max(bids, key=bids.get)
+```
+
+returns
+
+```text
+Alice
+```
+
+---
+
+# Why don't we write `bids.get()`?
+
+This is the most important part.
+
+### ❌ Wrong
+
+```python
+max(bids, key=bids.get())
+```
+
+Why?
+
+Because
+
+```python
+bids.get()
+```
+
+**calls the function immediately**.
+
+But Python wants the function itself.
+
+---
+
+### ✅ Correct
+
+```python
+max(bids, key=bids.get)
+```
+
+Notice there are **no parentheses**.
+
+You're giving Python the function so it can call it later.
+
+It's similar to:
+
+```python
+def square(x):
+    return x * x
+
+max(numbers, key=square)
+```
+
+Not
+
+```python
+max(numbers, key=square())
+```
+
+because `square()` needs an argument.
+
+---
+
+# The syntax you'll use often with dictionaries
+
+## Get a value
+
+```python
+bids["John"]
+```
+
+or
+
+```python
+bids.get("John")
+```
+
+---
+
+## Add or update
+
+```python
+bids["John"] = 500
+```
+
+---
+
+## Get all keys
+
+```python
+bids.keys()
+```
+
+---
+
+## Get all values
+
+```python
+bids.values()
+```
+
+---
+
+## Get both key and value
+
+```python
+bids.items()
+```
+
+Example:
+
+```python
+for name, price in bids.items():
+    print(name, price)
+```
+
+Output
+
+```text
+John 100
+Alice 250
+Bob 180
+```
+
+---
+
+## Get key with highest value
+
+```python
+winner = max(bids, key=bids.get)
+```
+
+---
+
+## Get key with lowest value
+
+```python
+loser = min(bids, key=bids.get)
+```
+
+---
+
+## Summary to remember
+
+| Syntax                    | Meaning                         |
+| ------------------------- | ------------------------------- |
+| `bids["John"]`            | Get John's bid                  |
+| `bids.get("John")`        | Get John's bid safely           |
+| `bids["John"] = 300`      | Add/update John's bid           |
+| `max(bids)`               | Largest key alphabetically      |
+| `max(bids, key=bids.get)` | Key whose **value** is largest  |
+| `min(bids, key=bids.get)` | Key whose **value** is smallest |
+
+**Rule of thumb:** Whenever you see `key=...` in Python functions like `max()`, `min()`, or `sorted()`, think:
+
+> **"Python will compare items using the function I provide."**
+
+For dictionaries, `bids.get` is a convenient function that takes a key and returns its corresponding value, so it tells Python to compare **values** instead of **keys**.
