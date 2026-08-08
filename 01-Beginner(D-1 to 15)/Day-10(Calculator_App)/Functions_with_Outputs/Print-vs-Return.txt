@@ -1,0 +1,461 @@
+# print() vs return in Python :
+
+Return vs. Display: The return statement is used to give back a value from a function, which can be used later, 
+while print is used to display a value to the console only for the programmer to see.
+
+
+
+
+| Feature                      | `print()`                                        | `return`                                                                       |
+| ---------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------  |
+| **Purpose**                  | Displays information on the screen.              | Sends a value back to the function caller.                                     |
+| **Where it is used**         | Inside or outside functions.                     | Only inside a function.                                                        |
+| **Output destination**       | Console (terminal/output window).                | The calling code (the variable, expression, or another function).              |
+| **Can the value be reused?** |  No. It only displays the value.                 |  Yes. The returned value can be stored and used later.                        |
+| **Affects program logic?**   |  No. It only shows information.                  |  Yes. It provides data for further computation.                               |
+| **Ends the function?**       |  No. Execution continues to the next line.       |  Yes. The function immediately stops after `return`.                          |
+| **Number of times**          | Can be used multiple times in a function.        | Usually one final `return` (though multiple conditional returns are possible). |
+| **Default return value**     | Doesn't return the printed value.                | If omitted, Python automatically returns `None`.                               |
+| **Primary use**              | Debugging, displaying results, user interaction. | Producing results for other parts of the program.                              |
+
+---
+
+# Example 1: Using `print()`
+
+```python
+def add(a, b):
+    print(a + b)
+
+result = add(5, 3)
+
+print(result)
+```
+
+### Execution
+
+```
+add(5,3)
+
+↓
+
+print(8)
+
+↓
+
+Screen shows
+8
+
+↓
+
+Function ends
+
+↓
+
+Python automatically returns None
+
+↓
+
+result = None
+```
+
+### Output
+
+```
+8
+None
+```
+
+---
+
+# Example 2: Using `return`
+
+```python
+def add(a, b):
+    return a + b
+
+result = add(5, 3)
+
+print(result)
+```
+
+### Execution
+
+```
+add(5,3)
+
+↓
+
+return 8
+
+↓
+
+result = 8
+
+↓
+
+print(result)
+```
+
+### Output
+
+```
+8
+```
+
+---
+
+# Can you use the result later?
+
+### `print()`
+
+```python
+def square(x):
+    print(x * x)
+
+square(5) * 2
+```
+
+❌ Error
+
+Because Python sees
+
+```python
+None * 2
+```
+
+---
+
+### `return`
+
+```python
+def square(x):
+    return x * x
+
+square(5) * 2
+```
+
+Python sees
+
+```python
+25 * 2
+```
+
+Output
+
+```
+50
+```
+
+---
+
+# Effect on Function Execution
+
+### `print()`
+
+```python
+def demo():
+    print("A")
+    print("B")
+    print("C")
+
+demo()
+```
+
+Output
+
+```
+A
+B
+C
+```
+
+The function executes every line.
+
+---
+
+### `return`
+
+```python
+def demo():
+    print("A")
+    return
+    print("B")
+    print("C")
+
+demo()
+```
+
+Output
+
+```
+A
+```
+
+The function stops immediately after `return`.
+
+---
+
+# Real-world Analogy
+
+Imagine a teacher checking your exam.
+
+### `print()`
+
+The teacher **announces**:
+
+> "ER scored 95."
+
+Everyone hears it, but you don't receive the marksheet to use elsewhere.
+
+---
+
+### `return`
+
+The teacher **hands you the marksheet**.
+
+Now you can:
+
+* Apply for college.
+* Show your parents.
+* Store it in your records.
+
+The value is now available to be used.
+
+---
+
+# Quick Memory Table
+
+| `print()`             | `return`                   |
+| --------------------- | -------------------------- |
+| Shows                 | Gives                      |
+| Displays              | Sends back                 |
+| For humans            | For the program            |
+| Output screen         | Caller                     |
+| Cannot reuse          | Can reuse                  |
+| Doesn't stop function | Stops function immediately |
+
+## Golden Rule
+
+* **Use `print()` when you want the user to *see* something.**
+* **Use `return` when you want your program to *use* something.**
+
+
+
+
+IS IN PROGRAM THERE HAVE MORE THAN ONE RETURN ?? 
+
+A function can have **as many `return` statements as you want**, but **only one `return` is executed during a single function call**.
+
+This is because **`return` immediately ends the function**.
+
+---
+
+# Syntax
+
+```python
+def function_name():
+    if condition1:
+        return value1
+
+    if condition2:
+        return value2
+
+    return value3
+```
+
+There are **3 return statements**, but only **one** will execute.
+
+---
+
+# Example 1: Multiple Returns
+
+```python
+def check_number(num):
+    if num > 0:
+        return "Positive"
+
+    if num < 0:
+        return "Negative"
+
+    return "Zero"
+```
+
+### Call 1
+
+```python
+print(check_number(5))
+```
+
+Execution
+
+```
+num = 5
+
+↓
+
+num > 0 ✔
+
+↓
+
+return "Positive"
+
+↓
+
+Function Ends
+```
+
+Output
+
+```
+Positive
+```
+
+---
+
+### Call 2
+
+```python
+print(check_number(-8))
+```
+
+Execution
+
+```
+num = -8
+
+↓
+
+num > 0 ✘
+
+↓
+
+num < 0 ✔
+
+↓
+
+return "Negative"
+
+↓
+
+Function Ends
+```
+
+Output
+
+```
+Negative
+```
+
+---
+
+### Call 3
+
+```python
+print(check_number(0))
+```
+
+Execution
+
+```
+num = 0
+
+↓
+
+num > 0 ✘
+
+↓
+
+num < 0 ✘
+
+↓
+
+return "Zero"
+
+↓
+
+Function Ends
+```
+
+Output
+
+```
+Zero
+```
+
+---
+
+# Example 2: `return` Stops Execution
+
+```python
+def demo():
+    print("Line 1")
+    return
+    print("Line 2")
+    print("Line 3")
+
+demo()
+```
+
+Output
+
+```
+Line 1
+```
+
+Python never reaches `Line 2` or `Line 3` because the function ended at `return`.
+
+---
+
+# Example 3: Multiple Returns in Real Programs
+
+```python
+def login(password):
+    if password == "":
+        return "Password Required"
+
+    if password != "python123":
+        return "Wrong Password"
+
+    return "Login Successful"
+```
+
+Each function call returns exactly **one** of these messages.
+
+---
+
+# Can One `return` Return Multiple Values?
+
+Yes.
+
+```python
+def student():
+    return "ER", 18, "Python"
+```
+
+Calling
+
+```python
+name, age, course = student()
+```
+
+Python actually returns a tuple:
+
+```python
+("ER", 18, "Python")
+```
+
+---
+
+# Rule to Remember
+
+| Question                                          | Answer                          |
+| ------------------------------------------------- | ------------------------------- |
+| Can a function have multiple `return` statements? |  Yes                           |
+| Can all of them execute in one function call?     |  No                            |
+| What happens after a `return` executes?           | The function stops immediately. |
+| Can one `return` send multiple values?            |  Yes (as a tuple)              |
+
+## Golden Rule
+
+> **A function may contain many `return` statements, but during a single function call, Python executes only the first `return` it reaches. After that, the function immediately exits.**
+

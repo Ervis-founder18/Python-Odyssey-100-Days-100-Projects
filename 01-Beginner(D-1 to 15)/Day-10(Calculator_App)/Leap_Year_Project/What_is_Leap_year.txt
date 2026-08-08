@@ -1,0 +1,886 @@
+To understand **leap years**, you first need to understand **how long Earth actually takes to go around the Sun**.
+
+---
+
+# Step 1: The Problem
+
+We usually say
+
+```
+1 Year = 365 Days
+```
+
+But this is **not exactly true**.
+
+The Earth actually takes approximately
+
+```
+365.2422 days
+```
+
+to complete one orbit around the Sun.
+
+That means every year we ignore
+
+```
+365.2422
+-365
+---------
+0.2422 day
+```
+
+Every year, our calendar falls behind the Earth's position by about **0.2422 days** (about **5 hours 49 minutes**).
+
+---
+
+# Step 2: What happens after 4 years?
+
+Each year we lose
+
+```
+0.2422 day
+```
+
+After 4 years
+
+```
+0.2422 × 4
+
+= 0.9688 day
+```
+
+That's almost
+
+```
+1 day
+```
+
+If we didn't fix this, after a few decades, the calendar would drift noticeably. Over centuries, seasons would no longer line up with the same months.
+
+So every **4 years**, we add **one extra day**.
+
+```
+February
+
+28 days
+
+↓
+
+29 days
+```
+
+That year has
+
+```
+366 days
+```
+
+instead of
+
+```
+365 days
+```
+
+This is called a **Leap Year** because the calendar "leaps" ahead by one day to catch up.
+
+---
+
+# Step 3: But there's a small problem
+
+Adding one day every 4 years assumes the extra time is exactly
+
+```
+0.25 day
+```
+
+because
+
+```
+1 day ÷ 4 years
+
+= 0.25 day/year
+```
+
+But the real extra time is
+
+```
+0.2422 day/year
+```
+
+Difference
+
+```
+0.2500
+-0.2422
+---------
+0.0078 day/year
+```
+
+We're adding **slightly too much** every year.
+
+That tiny error builds up over centuries.
+
+---
+
+# Step 4: Century Years
+
+Consider
+
+```
+1700
+1800
+1900
+2000
+2100
+2200
+```
+
+If every multiple of 4 were a leap year, we'd add too many leap days over long periods.
+
+So we make an exception:
+
+**Years divisible by 100 are NOT leap years.**
+
+That means:
+
+```
+1700 ❌
+
+1800 ❌
+
+1900 ❌
+
+2100 ❌
+```
+
+---
+
+# Step 5: But another problem!
+
+Now we've removed **too many** leap days.
+
+So we need another correction.
+
+If the century year is also divisible by **400**, then it **is** a leap year.
+
+Examples:
+
+```
+1600 ✅
+
+2000 ✅
+
+2400 ✅
+```
+
+---
+
+# Final Mathematical Rules
+
+A year is a leap year if:
+
+### Rule 1
+
+Divisible by 4
+
+```
+Year % 4 == 0
+```
+
+Example
+
+```
+2024
+
+2024 ÷ 4 = 506
+
+No remainder
+
+Leap Year
+```
+
+---
+
+### Rule 2
+
+If divisible by 100
+
+```
+Year % 100 == 0
+```
+
+then it is **NOT** a leap year.
+
+Example
+
+```
+1900
+
+1900 % 100 = 0
+
+Not Leap Year
+```
+
+---
+
+### Rule 3
+
+Unless divisible by 400
+
+```
+Year % 400 == 0
+```
+
+Example
+
+```
+2000
+
+2000 % 400 = 0
+
+Leap Year
+```
+
+---
+
+# Python Logic
+
+```python
+if year % 4 == 0:
+    if year % 100 == 0:
+        if year % 400 == 0:
+            print("Leap Year")
+        else:
+            print("Not Leap Year")
+    else:
+        print("Leap Year")
+else:
+    print("Not Leap Year")
+```
+
+---
+
+# Decision Tree
+
+```
+               Year
+                 │
+       Divisible by 4?
+          /           \
+       No             Yes
+       │               │
+ Not Leap      Divisible by 100?
+                  /          \
+               No            Yes
+               │              │
+          Leap Year    Divisible by 400?
+                           /         \
+                        Yes          No
+                         │            │
+                    Leap Year   Not Leap
+```
+
+---
+
+# Examples
+
+| Year |  ÷4 | ÷100 | ÷400 | Leap Year? |
+| ---: | :-: | :--: | :--: | :--------: |
+| 2024 |  ✅  |   ❌  |   ❌  |    ✅ Yes   |
+| 2023 |  ❌  |   ❌  |   ❌  |    ❌ No    |
+| 1900 |  ✅  |   ✅  |   ❌  |    ❌ No    |
+| 2000 |  ✅  |   ✅  |   ✅  |    ✅ Yes   |
+| 2100 |  ✅  |   ✅  |   ❌  |    ❌ No    |
+| 2400 |  ✅  |   ✅  |   ✅  |    ✅ Yes   |
+
+## The idea to remember
+
+A **leap year** exists because the Earth does **not** orbit the Sun in exactly **365 days**—it takes about **365.2422 days**. The calendar compensates for this by adding an extra day every four years, but because `0.2422` is slightly less than `0.25`, additional century rules (100 and 400) keep the calendar aligned with the Earth's orbit over hundreds of years.
+
+
+
+
+
+WHAT THE HECK IS 100 ,400 Stuffs ???
+
+
+
+Excellent question. You're asking **why the rules are exactly 4, 100, and 400**, not just what they are. Let's derive them from the math.
+
+---
+
+# Step 1: The Earth is the Clock
+
+The Earth doesn't care about our calendar.
+
+It takes approximately:
+
+```
+365.2422 days
+```
+
+to orbit the Sun once.
+
+But our calendar uses
+
+```
+365 days
+```
+
+So every year we're missing
+
+```
+365.2422
+-365
+--------
+0.2422 day
+```
+
+or about **5 hours 49 minutes**.
+
+---
+
+# Step 2: Why do we add one day every 4 years?
+
+Suppose we don't.
+
+After one year
+
+```
+0.2422 day behind
+```
+
+After two years
+
+```
+0.4844 day behind
+```
+
+After three years
+
+```
+0.7266 day behind
+```
+
+After four years
+
+```
+0.9688 day behind
+```
+
+That's almost exactly one whole day.
+
+So humans said,
+
+> "Let's simply add one day every four years."
+
+That's why leap years were invented.
+
+---
+
+# Step 3: But here comes the hidden mistake
+
+When we add one day every four years, what are we assuming?
+
+We're assuming
+
+```
+Extra day each year
+
+= 1 ÷ 4
+
+= 0.25 day/year
+```
+
+But nature says
+
+```
+0.2422 day/year
+```
+
+Compare them.
+
+```
+Calendar adds
+
+0.2500
+
+Earth needs
+
+0.2422
+
+Difference
+
+0.0078 day/year
+```
+
+So every year
+
+we're adding
+
+```
+0.0078 day
+
+TOO MUCH
+```
+
+Notice this:
+
+We fixed one problem...
+
+...but accidentally created a much smaller one.
+
+---
+
+# Step 4: How big does that mistake become?
+
+Every year
+
+```
+0.0078 day
+```
+
+After 10 years
+
+```
+0.078 day
+```
+
+After 50 years
+
+```
+0.39 day
+```
+
+After 100 years
+
+```
+0.78 day
+```
+
+Nearly
+
+```
+1 day
+```
+
+too many!
+
+That means after about one century,
+
+our calendar would now be **ahead** of the Earth by almost one day.
+
+---
+
+# Step 5: How do we remove that extra day?
+
+Simple.
+
+Once every century...
+
+DON'T add the leap day.
+
+Instead of
+
+```
+366
+```
+
+make that year
+
+```
+365
+```
+
+Example
+
+Instead of
+
+```
+1900
+
+Feb 29
+```
+
+we simply do
+
+```
+1900
+
+No Feb 29
+```
+
+Now we've removed one unnecessary day.
+
+That's where
+
+```
+Year % 100 == 0
+
+Not Leap Year
+```
+
+comes from.
+
+---
+
+# Step 6: But wait...
+
+We removed
+
+```
+1 whole day
+```
+
+Was our accumulated error exactly
+
+```
+1 day?
+```
+
+No.
+
+Remember.
+
+The accumulated error was
+
+```
+0.0078 ×100
+
+=
+
+0.78 day
+```
+
+We removed
+
+```
+1.00 day
+```
+
+Oops.
+
+Now we've removed
+
+```
+0.22 day
+
+TOO MUCH
+```
+
+We overcorrected.
+
+---
+
+# Step 7: That tiny error also accumulates
+
+Every century we remove
+
+```
+1 day
+```
+
+But we only needed to remove
+
+```
+0.78 day
+```
+
+Difference
+
+```
+1.00
+
+-0.78
+
+--------
+
+0.22 day
+```
+
+Every century we're now
+
+```
+0.22 day behind.
+```
+
+After four centuries
+
+```
+0.22 ×4
+
+=
+
+0.88 day
+```
+
+Almost
+
+```
+1 day
+```
+
+Again!
+
+---
+
+# Step 8: Final correction
+
+Every 400 years...
+
+instead of skipping the leap day...
+
+we KEEP IT.
+
+Meaning
+
+```
+1600
+
+Leap Year
+```
+
+```
+2000
+
+Leap Year
+```
+
+```
+2400
+
+Leap Year
+```
+
+This adds back the one day we removed too aggressively.
+
+That's why
+
+```
+Year %400==0
+
+Leap Year
+```
+
+---
+
+# Think of it like balancing a bank account
+
+Suppose every year you accidentally deposit
+
+```
+₹0.0078
+```
+
+too much.
+
+After 100 years
+
+```
+₹0.78
+```
+
+extra.
+
+So once every century
+
+you remove
+
+```
+₹1
+```
+
+Now you've removed
+
+```
+₹0.22
+```
+
+too much.
+
+After four centuries
+
+that missing amount becomes
+
+```
+₹0.88
+
+≈ ₹1
+```
+
+So every 400 years
+
+you decide
+
+> "Don't remove ₹1 this time."
+
+Exactly the same logic.
+
+---
+
+# The Complete Timeline
+
+### Every Year
+
+Earth gains
+
+```
+0.2422 day
+```
+
+---
+
+### Every 4 Years
+
+We add
+
+```
+1 day
+```
+
+because
+
+```
+4×0.2422
+
+=
+
+0.9688≈1
+```
+
+---
+
+### But
+
+We actually added
+
+```
+1.00
+```
+
+instead of
+
+```
+0.9688
+```
+
+Extra
+
+```
+0.0312 day every 4 years
+```
+
+which is the same as
+
+```
+0.0078 day/year
+```
+
+---
+
+### After 100 Years
+
+Extra becomes
+
+```
+0.78 day
+```
+
+Nearly
+
+```
+1 day
+```
+
+So skip one leap day.
+
+---
+
+### But
+
+Skipping one leap day removes
+
+```
+1 day
+```
+
+instead of
+
+```
+0.78 day
+```
+
+Now we're behind
+
+```
+0.22 day
+```
+
+---
+
+### After 400 Years
+
+```
+0.22×4
+
+=
+
+0.88≈1 day
+```
+
+So don't skip the leap day this time.
+
+---
+
+# That's why the rules are:
+
+```
+Divisible by 4
+
+↓
+
+Leap Year
+```
+
+```
+Except
+
+Divisible by 100
+
+↓
+
+Not Leap Year
+```
+
+```
+Except
+
+Divisible by 400
+
+↓
+
+Leap Year Again
+```
+
+## One small correction to your reasoning
+
+You said:
+
+> "In a century 25 times we add one day."
+
+That's true **if** every year divisible by 4 were a leap year. But in the Gregorian calendar, century years are special. For example, from **1901 to 2000**, the leap years would normally be 1904, 1908, ..., 1996, **and 2000**. There are 25 multiples of 4 in that range, but the century rule decides whether the century year counts. **1900** was **not** a leap year, while **2000** **was** because it is divisible by 400.
+
+The calendar rules are designed so that over a **400-year cycle** there are **97 leap years** (not 100). That gives an average year length of:
+
+```
+365 + 97/400
+= 365.2425 days
+```
+
+The true tropical year is about:
+
+```
+365.2422 days
+```
+
+So the Gregorian calendar differs by only about **0.0003 day per year** (about **26 seconds per year**), which means it takes roughly **3,300 years** for the calendar to drift by about one day. That's why these seemingly complicated rules work so well—they're a carefully engineered approximation of the Earth's actual orbit.
