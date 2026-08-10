@@ -1,0 +1,56 @@
+# Complete program written by me without watching solution just completed with what knowledge I had from 10 days lesson:
+
+## 🃏 What is Blackjack?
+
+Blackjack is a card game where the goal is to get a score **as close to 21 as possible without going over 21**. You play against the dealer/computer. Each player starts with two cards. Cards from 2–10 are worth their number, while J, Q, and K are worth 10. An Ace is worth **11 or 1**, depending on which value is better for the player. If your first two cards are an Ace and a 10-value card, you have **Blackjack**, which is an immediate winning hand in the basic version of the game.
+
+## 📜 Game Rules
+
+The player can choose **Hit** to receive another card or **Stand** to stop taking cards. If the player's score goes above 21, the player loses (**Bust**). The dealer/computer automatically draws cards while its score is **less than 17** and stops at 17 or higher. If the dealer goes above 21, the player wins. If neither side busts, the player with the higher score wins. If both scores are equal, it is a draw.
+
+## 🐍 Python Logic
+
+```text
+1. Create the card list
+        ↓
+2. Randomly give 2 cards to user and computer
+        ↓
+3. Calculate both scores using sum()
+        ↓
+4. Check for Blackjack
+        ↓
+5. Handle Ace:
+   If score > 21 and Ace exists,
+   subtract 10 from score
+        ↓
+6. User turn:
+   while user_score < 21
+        ↓
+   Ask Hit or Stand
+        ↓
+   Hit → random.choice() → append() → recalculate score
+        ↓
+7. Computer turn:
+   while computer_score < 17
+        ↓
+   random.choice() → append() → recalculate score
+        ↓
+8. Handle computer's Ace
+        ↓
+9. Compare final scores
+        ↓
+10. WIN / LOSE / DRAW
+```
+
+### Key Python concepts used
+
+```python
+random.choice()     # pick one random card
+random.choices()    # pick multiple cards
+.append()           # add a card to the list
+sum()               # calculate the score
+if / elif / else    # make decisions
+while               # repeat while a condition is true
+input()             # get Hit/Stand from the user
+break               # stop the loop
+```
