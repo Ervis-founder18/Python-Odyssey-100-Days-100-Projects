@@ -1,0 +1,116 @@
+DAY 13 — DEBUGGING: HOW TO FIND AND FIX ERRORS ??
+
+Debugging = finding out WHY your program is not behaving as expected and fixing the cause.
+
+A bug is a mistake/problem in your code. Debugging is the process of finding and fixing it.
+
+THE 10 DEBUGGING TIPS:
+
+1. DESCRIBE THE PROBLEM
+   → Clearly identify what is going wrong.
+   → Ask: "What should happen?" vs. "What is actually happening?"
+
+2. REPRODUCE THE BUG
+   → Run the program again and make the problem happen consistently.
+   → Try different inputs to understand exactly when the bug appears.
+
+3. PLAY COMPUTER
+   → Pretend YOU are Python.
+   → Go through the code line by line and manually track what each variable contains.
+   → Ask: "What should this line do?"
+
+4. CHECK YOUR ERROR MESSAGES
+   → Read the traceback carefully.
+   → Look at the error type and the line number.
+   → Red underlines in the IDE can also point toward possible problems.
+   → Don't just read the last line; understand what the traceback is telling you.
+
+5. USE print()
+   → If you don't know what a variable contains, print it.
+   → Use print() to check your assumptions.
+   
+   Example:
+   print(score)
+   print(attempts)
+   print(user_input)
+
+   This helps you see what is ACTUALLY happening.
+
+6. USE A DEBUGGER
+   → A debugger lets you pause your program and inspect it step by step.
+   → Set a breakpoint and run the program.
+   → Inspect variables and follow the program's execution.
+   → Think of a debugger as a much more powerful way of using print().
+
+7. TAKE A BREAK
+   → If you have been staring at the same bug for a long time, step away.
+   → Come back with a fresh mind.
+   → Sometimes the mistake becomes obvious after a break.
+
+8. ASK SOMEONE
+   → Explain the problem to another person.
+   → Even explaining the problem out loud can help you discover the mistake yourself.
+   → A fresh perspective can reveal something you missed.
+
+9. RUN YOUR CODE OFTEN
+   → Don't write hundreds of lines before testing.
+   → Write a small amount → run it → check it → continue.
+   → Smaller changes make bugs much easier to locate.
+
+10. SEARCH FOR THE ERROR
+    → Search the exact error message when you're stuck.
+    → Stack Overflow and other programming resources can help.
+    → Read the explanations and understand the solution instead of blindly copying it.
+
+IMPORTANT DEBUGGING MINDSET:
+
+Don't think:
+"MY CODE IS BROKEN "
+
+Think:
+"Something is producing an unexpected result. I need to find WHERE and WHY."
+
+DEBUGGING PROCESS:
+
+Problem
+   ↓
+Describe what should happen
+   ↓
+Reproduce the bug
+   ↓
+Read the error / observe the behavior
+   ↓
+Trace the code line by line
+   ↓
+Check variables with print()
+   ↓
+Use a debugger if necessary
+   ↓
+Find the cause
+   ↓
+Fix ONE thing
+   ↓
+Run the program again
+   ↓
+Verify the fix
+
+CORE RULE:
+
+Don't randomly change code until the error disappears.
+
+First understand:
+WHAT is wrong?
+WHERE is it happening?
+WHY is it happening?
+
+Then fix it.
+
+DEBUGGING IS NOT A SEPARATE SKILL FROM PROGRAMMING.
+
+A good programmer is not someone who never creates bugs.
+
+A good programmer becomes good at:
+→ finding bugs
+→ understanding why they happened
+→ fixing them
+→ preventing similar bugs in the future.
