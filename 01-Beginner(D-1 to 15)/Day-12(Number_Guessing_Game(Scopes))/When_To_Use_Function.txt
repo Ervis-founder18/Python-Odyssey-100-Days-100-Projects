@@ -1,0 +1,55 @@
+WHERE TO USE FUNCTIONS IN PYTHON
+
+Use a function when:
+
+1. You are REPEATING the same code/logic.
+   → Put that repeated logic inside a function and call it whenever needed.
+
+2. A piece of code has ONE CLEAR JOB.
+   → Example: check_guess(), calculate_score(), login_user(), send_email().
+
+3. You want to REUSE the same logic with different values.
+   → Example: play_game(10) for Easy and play_game(5) for Hard.
+
+4. A section of your program is becoming TOO LONG or difficult to understand.
+   → Break the large program into smaller functions.
+
+5. You want to keep different RESPONSIBILITIES separate.
+   → One function checks something, another function manages the overall process.
+
+6. You need to use the same operation in MULTIPLE PLACES.
+   → Write it once as a function instead of copying the code.
+
+7. A function needs information from outside, give it PARAMETERS.
+   → def check_guess(guess, answer, attempts):
+
+8. A function needs to SEND INFORMATION BACK, use RETURN.
+   → return attempts, True
+
+IMPORTANT:
+Do NOT create a function just because you can.
+More functions does NOT automatically mean better code.
+
+Before creating a function, ask yourself:
+
+→ Am I repeating this logic?
+→ Does this code perform one clear job?
+→ Will I reuse this logic?
+→ Is this section making my main program difficult to understand?
+
+If YES to one or more → a function may be useful.
+
+Simple rule to remember:
+
+FUNCTION = Take a specific job → give it a name → optionally give it inputs → let it do the job → optionally return the result.
+
+Example:
+
+def play_game(attempts):
+    # game logic
+
+play_game(10)
+play_game(5)
+
+The function contains the COMMON logic.
+The arguments provide the DIFFERENCE.
