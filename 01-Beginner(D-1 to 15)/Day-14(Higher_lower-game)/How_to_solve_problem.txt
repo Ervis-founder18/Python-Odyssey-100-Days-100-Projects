@@ -1,0 +1,34 @@
+The ways to approach the problem in the programming ;
+
+STEP-1: Breakdown the Problem ;
+
+i) First, think about the problem and then break down a large problem into smaller problems 
+
+ii) This way you can tackle the problem one by one
+
+STEP-2 :Make a TODO list of problems ;
+
+i) Look at the problem make a TODO list, Give the items in the TODO list
+
+ii) Start with easiest : Pick from the TODO list that one that you think is the easiest to begin 
+
+iii) TURN THE PROBLEMS INTO COMMENTS IN YOUR CODE
+
+FOR EXAMPLE : #Import the random module
+# Use randint() to generate a random integer
+
+Now : You have taken a big problem --> Broken into smaller problems --> Take the easiest smaller among the smaller problem 
+---> Break it down into Comments into Your Code Then 
+
+				You are ready to Write Code <----------
+						|                     |
+						v		      |
+					    RUN CODE                  |		LOOP CONTINUES UNTIL YOU CROSS OUT THE TASK IN THE TODO LIST & THEN TO TACKLE THE NEXT TASK IN THE TODO LIST 
+						|                     |          WHAT  YOU THINK IS THE EASIEST ONE TO HARDEST ONE
+						v                     |
+					    FIX CODE -----------------|
+
+
+
+THIS IS THE REAL SKILL OF PROGRAMMERS TAKING SOMETHING THAT'S IMMENSELY COMPLEX AND DIFFICULT , BREAKING IT DOWN INTO SMALLER PROBLEM AND BREAKING IT DOWN FURTHER AND THEN TACKLING THEM FROM THE EASIEST TO THE HARDEST AND DOING THIS ONE BY ONE . EVENTUALLY , BY THE END , YOU WILL END UP WITH YOUR FINAL PRODUCT.
+
